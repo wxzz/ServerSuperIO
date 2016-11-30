@@ -1,0 +1,4 @@
+TestDeviceDriver.dll：二次开发设备的驱动
+TestService.dll：二次开发的服务组件
+TestShowForm.dll：二次开发的视图显示
+TestDevice.exe：终端测试程序

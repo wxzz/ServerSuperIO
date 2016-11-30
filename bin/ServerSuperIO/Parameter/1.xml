@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DevicePara xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DeviceID>1</DeviceID>
+  <DeviceAddr>1</DeviceAddr>
+  <DeviceName>网络设备</DeviceName>
+  <IsSaveOriginBytes>false</IsSaveOriginBytes>
+  <IsAlert>false</IsAlert>
+  <IsAlertSound>false</IsAlertSound>
+  <COM>
+    <Port>1</Port>
+    <Baud>9600</Baud>
+  </COM>
+  <NET>
+    <RemoteIP>127.0.0.1</RemoteIP>
+    <RemotePort>9600</RemotePort>
+    <WorkMode>TcpServer</WorkMode>
+  </NET>
+  <DataFormat>0.000</DataFormat>
+  <VirtualFormat />
+  <DeviceCode>1</DeviceCode>
+</DevicePara>

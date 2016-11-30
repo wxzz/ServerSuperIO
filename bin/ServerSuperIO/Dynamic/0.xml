@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DeviceDyn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DeviceID>0</DeviceID>
+  <Remark />
+  <RunState>None</RunState>
+  <CommunicateState>Interrupt</CommunicateState>
+  <ChannelState>Open</ChannelState>
+  <Dyn>
+    <CurDT>2016-11-22T17:38:06.7076151+08:00</CurDT>
+    <ProHead>Vao=</ProHead>
+    <DeviceAddr>0</DeviceAddr>
+    <Command>YQ==</Command>
+    <ProEnd>DQ==</ProEnd>
+    <Flow>250</Flow>
+    <Signal>360.164459</Signal>
+  </Dyn>
+</DeviceDyn>

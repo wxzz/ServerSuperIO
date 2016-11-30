@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/wxzz/ServerSuperIO/blob/2.0/README.md</licenseUrl>
+    <projectUrl>https://github.com/wxzz/ServerSuperIO/tree/2.0</projectUrl>
+    <iconUrl>http://www.bmpj.net/SSIO.ico</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Iot Communication Framework.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>Iot Communication Framework</tags>
+  </metadata>
+</package>
