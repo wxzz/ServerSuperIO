@@ -1,3 +1,4 @@
+# 最新源代码以官方为准：<a href="http://www.bmpj.net/thread-14-1-1.html">官方源码下载</a>
 # ServerSuperIO
 
 #SSIO的特点
