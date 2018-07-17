@@ -1,4 +1,3 @@
-# 最新版本官方为准：<a href="http://www.bmpj.net/thread-14-1-1.html">官方下载</a>
 # 注：二次开发套件、SuperIO、ServerSuperIO.WinIot(windows10 iot版本)不在开源之列。<br>
 
 #ServerSuperIO的特点
