@@ -12,6 +12,7 @@ using ServerSuperIO.Device.Connector;
 using ServerSuperIO.Protocol;
 using ServerSuperIO.Protocol.Filter;
 using ServerSuperIO.Service.Connector;
+using ServerSuperIO.WebSocket;
 
 namespace TestDeviceDriver
 {
@@ -28,82 +29,65 @@ namespace TestDeviceDriver
             _protocol = new DeviceProtocol();
         }
 
-        public override void Initialize(string devid)
+        public override void Initialize(object obj)
         {
             this.Protocol.InitDriver(this.GetType(), null);
 
             //初始化设备参数信息
             
-            _devicePara.DeviceID = devid;//设备的ID必须先赋值，因为要查找对应的参数文件。
-            if (System.IO.File.Exists(_devicePara.SavePath))
-            {
-                //如果参数文件存在，则获得参数实例
-                _devicePara = _devicePara.Load<DevicePara>();
-            }
-            else
-            {
-                //如果参数文件不存在，则序列化一个文件
-                _devicePara.Save<DevicePara>(_devicePara);
-            }
+            //_devicePara.DeviceID = devid;//设备的ID必须先赋值，因为要查找对应的参数文件。
+            //_devicePara.Load();
 
-            //初始化设备实时数据信息
-            _deviceDyn.DeviceID = devid;//设备的ID必须先赋值，因为要查找对应的实时数据文件。
-            if (System.IO.File.Exists(_deviceDyn.SavePath))
-            {
-                //如果参数文件存在，则获得参数实例
-                _deviceDyn = _deviceDyn.Load<DeviceDyn>();
-            }
-            else
-            {
-                //如果参数文件不存在，则序列化一个文件
-                _deviceDyn.Save<DeviceDyn>(_deviceDyn);
-            }
+            ////初始化设备实时数据信息
+            //_deviceDyn.DeviceID = devid;//设备的ID必须先赋值，因为要查找对应的实时数据文件。
+            //_deviceDyn.Load();
         }
 
-        public override byte[] GetConstantCommand()
+        public override IList<IRequestInfo> GetConstantCommand()
         {
             //return this.Protocol.DriverPackage<String,String>("0", "61", String.Empty,String.Empty);
             return null;
         }
 
-        public override void Communicate(ServerSuperIO.Communicate.IRequestInfo info)
+        public override void Communicate(ServerSuperIO.Communicate.IResponseInfo info)
         {
             try
             {
-                string hexs = BinaryUtil.ByteToHex(info.Data);
+                //string hexs = BinaryUtil.ByteToHex(info.Data);
                 
                 Dyn dyn = this.Protocol.DriverAnalysis<String>("61", info.Data, null);
                 if (dyn != null)
                 {
-                    _deviceDyn.Dyn = dyn;
+                    _deviceDyn.Flow = dyn.Flow;
+                    _deviceDyn.Signal = dyn.Signal;
                     OnDeviceRuningLog("接收>>" + dyn.Flow.ToString()+","+dyn.Signal.ToString());
                 }
-                Task.Factory.StartNew(() => {
 
+                Task.Factory.StartNew(() =>
+                {
                     if (info.Channel != null)
                     {
                         lock (info.Channel.SyncLock)
                         {
-                            ((ISocketSession)info.Channel).TrySend(new byte[] { 0x00, 0x01, 0x03, 0x04, 0x05 }, false);
+                            ((ISocketSession)info.Channel).StartSend(new byte[] { 0x00, 0x01, 0x03, 0x04, 0x05 }, false,WebSocketFrameType.Binary);
                         }
                     }
                 });
-               
+
                 OnDeviceRuningLog("通讯正常");
             }
             catch (Exception ex)
             {
                 OnDeviceRuningLog(ex.Message);
             }
-          
         }
 
-        public override void CommunicateInterrupt(ServerSuperIO.Communicate.IRequestInfo info)
+        public override void CommunicateInterrupt(ServerSuperIO.Communicate.IResponseInfo info)
         {
             OnDeviceRuningLog("通讯中断");
         }
 
-        public override void CommunicateError(ServerSuperIO.Communicate.IRequestInfo info)
+        public override void CommunicateError(ServerSuperIO.Communicate.IResponseInfo info)
         {
             OnDeviceRuningLog("通讯干扰");
         }
@@ -113,31 +97,31 @@ namespace TestDeviceDriver
             OnDeviceRuningLog("通讯未知");
         }
 
-        public override void Alert()
-        {
-            return;
-        }
+        //public override void Alert()
+        //{
+        //    return;
+        //}
 
-        public override void Save()
-        {
-            try
-            {
-                _deviceDyn.Save<DeviceDyn>(_deviceDyn);
-            }
-            catch (Exception ex)
-            {
-                OnDeviceRuningLog(ex.Message);
-            }
-        }
+        //public override void Save()
+        //{
+        //    try
+        //    {
+        //        _deviceDyn.Save();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        OnDeviceRuningLog(ex.Message);
+        //    }
+        //}
 
-        public override void Show()
-        {
-            List<string> list=new List<string>();
-            list.Add(_devicePara.DeviceName);
-            list.Add(_deviceDyn.Dyn.Flow.ToString());
-            list.Add(_deviceDyn.Dyn.Signal.ToString());
-            OnDeviceObjectChanged(list.ToArray());
-        }
+        //public override void Show()
+        //{
+        //    //List<string> list=new List<string>();
+        //    //list.Add(_devicePara.DeviceName);
+        //    //list.Add(_deviceDyn.Dyn.Flow.ToString());
+        //    //list.Add(_deviceDyn.Dyn.Signal.ToString());
+        //    //OnDeviceObjectChanged(list.ToArray());
+        //}
 
         public override void UnknownIO()
         {
@@ -169,10 +153,10 @@ namespace TestDeviceDriver
             throw new NotImplementedException();
         }
 
-        public override string GetAlertState()
-        {
-            return "";
-        }
+        //public override string GetAlertState()
+        //{
+        //    return "";
+        //}
 
         public override void ShowContextMenu()
         {
@@ -203,7 +187,9 @@ namespace TestDeviceDriver
             get { return "serversuperio"; }
         }
 
-        public override object RunDeviceConnector(IFromDevice fromDevice, IDeviceToDevice toDevice)
+
+        public override IDeviceConnectorCallbackResult RunDeviceConnector(IFromDevice fromDevice, IDeviceToDevice toDevice,
+            AsyncDeviceConnectorCallback asyncCallback)
         {
             throw new NotImplementedException();
         }
@@ -218,7 +204,8 @@ namespace TestDeviceDriver
             throw new NotImplementedException();
         }
 
-        public override object RunServiceConnector(IFromService fromService, IServiceToDevice toDevice)
+        public override IServiceConnectorCallbackResult RunServiceConnector(IFromService fromService, IServiceToDevice toDevice,
+            AsyncServiceConnectorCallback asyncService)
         {
             throw new NotImplementedException();
         }

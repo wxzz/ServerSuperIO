@@ -7,13 +7,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using ServerSuperIO.Service;
 using ServerSuperIO.Service.Connector;
+using ServerSuperIO.Data;
+using ServerSuperIO.Device;
 
 namespace TestService
 {
     public class Service : ServerSuperIO.Service.Service
     {
         private object _SyncObject = new object();
-        private Dictionary<string, string[]> _Cache = null;
+        private Dictionary<string, List<Tag>> _Cache = null;
         private TcpClient _tcpClient = null;
         private Thread _Thread = null;
         private int _SendBufferSize = 2048;
@@ -25,7 +27,7 @@ namespace TestService
         public Service()
         {
             _Buffer = new byte[_ReceiveBufferSize];
-            _Cache = new Dictionary<string, string[]>();
+            _Cache = new Dictionary<string, List<Tag>>();
         }
         public override string ServiceKey
         {
@@ -43,37 +45,37 @@ namespace TestService
             f1.ShowDialog();
         }
 
-        public override void UpdateDevice(string devCode, object obj)
-        {
-            lock (_SyncObject)
-            {
-                if (obj != null)
-                {
-                    if (obj is string[])
-                    {
-                        string[] arr = (string[])obj;
-                        //OnServiceLog(String.Format("服务：{0} 接收到'{1}'的数据>>{2},{3}", ServiceName, arr[1], arr[2], arr[3]));
-                        if (arr.Length >= 2)
-                        {
-                            if (this._Cache.ContainsKey(devCode)) //判断ID
-                            {
-                                this._Cache[devCode] = arr;
-                            }
-                            else
-                            {
-                                this._Cache.Add(devCode, arr);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        //public override void UpdateDevice(string devCode, object obj)
+        //{
+        //    lock (_SyncObject)
+        //    {
+        //        if (obj != null)
+        //        {
+        //            if (obj is List<Tag>)
+        //            {
+        //                List<Tag> arr = (List<Tag>)obj;
+        //                //OnServiceLog(String.Format("服务：{0} 接收到'{1}'的数据>>{2},{3}", ServiceName, arr[1], arr[2], arr[3]));
+        //                //if (arr.Length >= 2)
+        //                //{
+        //                    if (this._Cache.ContainsKey(devCode)) //判断ID
+        //                    {
+        //                        this._Cache[devCode] = arr;
+        //                    }
+        //                    else
+        //                    {
+        //                        this._Cache.Add(devCode, arr);
+        //                    }
+        //                //}
+        //            }
+        //        }
+        //    }
+        //}
 
-        public override void RemoveDevice(string devCode)
-        {
-            this._Cache.Remove(devCode);
-            OnServiceLog("删除数据");
-        }
+        //public override void RemoveDevice(string devCode)
+        //{
+        //    this._Cache.Remove(devCode);
+        //    OnServiceLog("删除数据");
+        //}
 
         public override void StartService()
         {
@@ -144,9 +146,14 @@ namespace TestService
                         lock (_SyncObject)
                         {
                             string content = String.Empty;
-                            foreach (KeyValuePair<string, string[]> kv in _Cache)
+                            foreach (KeyValuePair<string, List<Tag>> kv in _Cache)
                             {
-                                content += String.Join(",", kv.Value) + Environment.NewLine;
+                                foreach (Tag tag in kv.Value)
+                                {
+                                    content += tag.TagName+":"+tag.TagValue+";";
+                                }
+
+                                content += Environment.NewLine;
                             }
 
                             if (!String.IsNullOrEmpty(content))
@@ -232,7 +239,7 @@ namespace TestService
                     {
                         //处理数据.....................通知设备
                         string text = System.Text.Encoding.ASCII.GetString(_Buffer, 0, read);
-                        OnServiceConnector(new FromService(this.ServiceName,this.ServiceKey),new ServiceToDevice("1",text,null,null) );
+                        OnServiceConnector(new FromService(this.ServiceName,this.ServiceKey,this),new ServiceToDevice("1",text,null,null) );
 
                         OnReceive();
                     }
@@ -264,5 +271,47 @@ namespace TestService
             }
         }
 
+        private void DealData(string deviceCode,object deviceData)
+        {
+            lock (_SyncObject)
+            {
+                string devCode = deviceCode;
+                object obj = deviceData;
+                if (obj != null)
+                {
+                    if (obj is List<Tag>)
+                    {
+                        List<Tag> arr = (List<Tag>)obj;
+                        //OnServiceLog(String.Format("服务：{0} 接收到'{1}'的数据>>{2},{3}", ServiceName, arr[1], arr[2], arr[3]));
+                        //if (arr.Length >= 2)
+                        //{
+                        if (this._Cache.ContainsKey(devCode)) //判断ID
+                        {
+                            this._Cache[devCode] = arr;
+                        }
+                        else
+                        {
+                            this._Cache.Add(devCode, arr);
+                        }
+                        //}
+                    }
+                }
+            }
+        }
+
+        public override void InternalServerSubscriber(InternalServerPublisherArgs args)
+        {
+            DealData(args.DeviceCode, args.Object);
+        }
+
+        public override void GlobalServerSubscriber(GlobalServerPublisherArgs args)
+        {
+            DealData(args.DeviceCode, args.Object);
+        }
+
+        public override void TagValueSubscriber(TagValuePublishedArgs args)
+        {
+            OnServiceLog(args.TagName + "," + args.NewValue.ToString());
+        }
     }
 }

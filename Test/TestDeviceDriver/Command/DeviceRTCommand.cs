@@ -64,11 +64,18 @@ namespace TestDeviceDriver
                 ProEnd = this.ProtocolDriver.GetEnd(data)
             };
 
-            //一般下位机是单片的话，接收到数据的高低位需要互换，才能正常解析。
-            byte[] flow = BinaryUtil.SubBytes(data, 4, 4, true);
-            dyn.Flow = BitConverter.ToSingle(flow, 0);
-            byte[] signal = BinaryUtil.SubBytes(data, 8, 4, true);
-            dyn.Signal = BitConverter.ToSingle(signal, 0);
+            //try
+            //{
+                //一般下位机是单片的话，接收到数据的高低位需要互换，才能正常解析。
+                byte[] flow = BinaryUtil.SubBytes(data, 4, 4, true);
+                dyn.Flow = BitConverter.ToSingle(flow, 0);
+                byte[] signal = BinaryUtil.SubBytes(data, 8, 4, true);
+                dyn.Signal = BitConverter.ToSingle(signal, 0);
+            //}
+            //catch(Exception ex)
+            //{
+            //    throw ex;
+            //}
             return dyn;
         }
 

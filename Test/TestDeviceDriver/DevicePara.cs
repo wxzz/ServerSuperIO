@@ -9,9 +9,6 @@ namespace TestDeviceDriver
     [Serializable]
     public class DevicePara:ServerSuperIO.Device.DeviceParameter
     {
-        public override object Repair()
-        {
-            return new DevicePara();
-        }
+        public string Model { get; set; }
     }
 }

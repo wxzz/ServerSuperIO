@@ -9,10 +9,8 @@ using ServerSuperIO.Communicate.NET;
 using ServerSuperIO.Config;
 using ServerSuperIO.Server;
 using ServerSuperIO.Service;
-using ServerSuperIO.Show;
 using TestDeviceDriver;
 using TestService;
-using TestShowForm;
 
 namespace TestSelfMain
 {
@@ -20,27 +18,48 @@ namespace TestSelfMain
     {
         static void Main(string[] args)
         {
-            //DeviceSelfDriver dev1 = new DeviceSelfDriver();
-            //dev1.DeviceParameter.DeviceName = "串口设备";
-            //dev1.DeviceParameter.DeviceAddr = 0;
-            //dev1.DeviceParameter.DeviceID = "0";
-            //dev1.DeviceDynamic.DeviceID = "0";
-            //dev1.DeviceParameter.DeviceCode = "0";
-            //dev1.DeviceParameter.COM.Port = 1;
-            //dev1.DeviceParameter.COM.Baud = 9600;
-            //dev1.CommunicateType = CommunicateType.COM;
-            //dev1.Initialize("0");
 
-            DeviceSelfDriver dev2 = new DeviceSelfDriver();
-            dev2.DeviceParameter.DeviceName = "网络设备";
-            dev2.DeviceParameter.DeviceAddr = 1;
-            dev2.DeviceParameter.DeviceID = "1";
-            dev2.DeviceDynamic.DeviceID = "1";
-            dev2.DeviceParameter.DeviceCode = "1";
-            dev2.DeviceParameter.NET.RemoteIP = "127.0.0.1";
-            dev2.DeviceParameter.NET.RemotePort = 9600;
-            dev2.CommunicateType = CommunicateType.NET;
-            dev2.Initialize("1");
+            string deviceID = "0";
+            DeviceSelfDriver dev = new DeviceSelfDriver();
+            dev.DeviceParameter.DeviceName = "设备2";
+            dev.DeviceParameter.DeviceAddr = 0;
+            dev.DeviceParameter.DeviceID = deviceID;
+            dev.DeviceParameter.DeviceCode = deviceID;
+            dev.DeviceDynamic.DeviceID = deviceID;
+            dev.DeviceParameter.NET.RemoteIP = "127.0.0.1";
+            dev.DeviceParameter.NET.RemotePort = 9600;
+            dev.DeviceParameter.NET.ControllerGroup = "G2";
+            dev.CommunicateType = CommunicateType.NET;
+            dev.DeviceParameter.NET.WorkMode = WorkMode.TcpServer;
+            dev.Initialize(deviceID);
+
+
+            deviceID = "2";
+            DeviceSelfDriver dev3 = new DeviceSelfDriver();
+            dev3.DeviceParameter.DeviceName = "设备2";
+            dev3.DeviceParameter.DeviceAddr = 0;
+            dev3.DeviceParameter.DeviceID = deviceID;
+            dev3.DeviceParameter.DeviceCode = deviceID;
+            dev3.DeviceDynamic.DeviceID = deviceID;
+            dev3.DeviceParameter.NET.RemoteIP = "127.0.0.1";
+            dev3.DeviceParameter.NET.RemotePort = 9600;
+            dev3.DeviceParameter.NET.ControllerGroup = "G2";
+            dev3.CommunicateType = CommunicateType.NET;
+            dev3.DeviceParameter.NET.WorkMode = WorkMode.TcpServer;
+            dev3.Initialize(deviceID);
+
+            deviceID = "3";
+            DeviceSelfDriver dev4 = new DeviceSelfDriver();
+            dev4.DeviceParameter.DeviceName = "设备3";
+            dev4.DeviceParameter.DeviceAddr = 0;
+            dev4.DeviceParameter.DeviceID = deviceID;
+            dev4.DeviceParameter.DeviceCode = "0";
+            dev4.DeviceDynamic.DeviceID = deviceID;
+            dev4.DeviceParameter.NET.RemoteIP = "172.16.37.2";
+            dev4.DeviceParameter.NET.RemotePort = 9600;
+            dev4.DeviceParameter.NET.ControllerGroup = "G3";
+            dev4.CommunicateType = CommunicateType.NET;
+            dev4.Initialize(deviceID);
 
             IServer server = new ServerManager().CreateServer(new ServerConfig()
             {
@@ -51,24 +70,45 @@ namespace TestSelfMain
                 NetSendTimeout = 1000,
                 ControlMode = ControlMode.Self,
                 SocketMode = SocketMode.Tcp,
-                StartReceiveDataFliter = true,
+                ReceiveDataFliter = false,
                 ClearSocketSession = false,
-                StartCheckPackageLength = true,
+                CheckPackageLength = true,
                 CheckSameSocketSession = false,
                 DeliveryMode = DeliveryMode.DeviceCode,
+               
             });
 
             server.AddDeviceCompleted += server_AddDeviceCompleted;
-            server.DeleteDeviceCompleted+=server_DeleteDeviceCompleted;
+            server.DeleteDeviceCompleted += server_DeleteDeviceCompleted;
             server.Start();
 
-            //server.AddDevice(dev1);
-            server.AddDevice(dev2);
+            //server.AddDevice(dev);
+            //server.AddDevice(dev3);
+            server.AddDevice(dev4);
 
-            TestService.Service service=new TestService.Service();
-            service.IsAutoStart = true;
-            server.AddService(service);
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    string code = i.ToString();
+            //    DeviceSelfDriver rdev = new DeviceSelfDriver();
+            //    rdev.DeviceParameter.DeviceName = "网络设备" + code;
+            //    rdev.DeviceParameter.DeviceAddr = i;
+            //    rdev.DeviceParameter.DeviceID = code;
+            //    rdev.DeviceDynamic.DeviceID = code;
+            //    rdev.DeviceParameter.DeviceCode = code;
+            //    rdev.DeviceParameter.NET.RemoteIP = "127.0.0.1";
+            //    rdev.DeviceParameter.NET.RemotePort = 9600;
+            //    rdev.CommunicateType = CommunicateType.NET;
+            //    rdev.Initialize(code);
+            //    server.AddDevice(rdev);
+            //}
 
+            //TestService.Service service=new TestService.Service();
+            //service.IsAutoStart = true;
+            //server.AddService(service);
+
+            //ServerSuperIO.ControlDeviceService.ControlService service = new ServerSuperIO.ControlDeviceService.ControlService();
+            //service.IsAutoStart = true;
+            //server.AddService(service);
 
             while ("exit" == Console.ReadLine())
             {
@@ -81,12 +121,12 @@ namespace TestSelfMain
             Console.WriteLine(log);
         }
 
-        private static void server_DeleteDeviceCompleted(string devid, string devName, bool isSuccess)
+        private static void server_DeleteDeviceCompleted(string serverSession, string devId, string devName, bool isSuccess)
         {
             Console.WriteLine(devName + ",删除:" + isSuccess.ToString());
         }
 
-        private static void server_AddDeviceCompleted(string devid, string devName, bool isSuccess)
+        private static void server_AddDeviceCompleted(string serverSession, string devId, string devName, bool isSuccess)
         {
             Console.WriteLine(devName + ",增加:" + isSuccess.ToString());
         }

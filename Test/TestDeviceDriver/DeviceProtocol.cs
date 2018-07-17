@@ -74,7 +74,7 @@ namespace TestDeviceDriver
             if (data == null || data.Length <= 0)
                 return 0;
 
-            readTimeout = 2000;
+            readTimeout = 10000;
 
             if (CheckData(data))
             {
@@ -86,7 +86,7 @@ namespace TestDeviceDriver
 
                         if (length <= 1024*1024) //1M
                         {
-                            int num = channel.Write(data);
+                            int num = channel.Write(data,ServerSuperIO.WebSocket.WebSocketFrameType.Binary);
                             if (num > 0)
                             {
                                 Console.WriteLine("返回文件请求确认数据");

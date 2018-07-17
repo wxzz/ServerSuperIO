@@ -13,8 +13,10 @@ F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\TransFile\TransFileCl
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TransFile\TransFileClient\obj\Release\TransFileClient.exe
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TransFile\TransFileClient\obj\Release\TransFileClient.pdb
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TransFile\TransFileClient\obj\Release\TransFileClient.csprojResolveAssemblyReference.cache
-F:\github\ServerSuperIO\Test\TransFile\TransFileClient\obj\Release\TransFileClient.exe
-F:\github\ServerSuperIO\Test\TransFile\TransFileClient\obj\Release\TransFileClient.pdb
-F:\github\ServerSuperIO\bin\TransFileClient.exe.config
-F:\github\ServerSuperIO\bin\TransFileClient.exe
-F:\github\ServerSuperIO\bin\TransFileClient.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TransFileClient.exe.config
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TransFileClient.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TransFileClient.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileClient\obj\Release\TransFileClient.csproj.CoreCompileInputs.cache
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileClient\obj\Release\TransFileClient.csproj.CopyComplete
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileClient\obj\Release\TransFileClient.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileClient\obj\Release\TransFileClient.pdb

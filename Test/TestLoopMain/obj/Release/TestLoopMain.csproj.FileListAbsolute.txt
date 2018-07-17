@@ -23,9 +23,11 @@ F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\bin\TestLoopMain.pdb
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestLoopMain\obj\Release\TestLoopMain.exe
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestLoopMain\obj\Release\TestLoopMain.pdb
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestLoopMain\obj\Release\TestLoopMain.csprojResolveAssemblyReference.cache
-F:\github\ServerSuperIO\Test\TestLoopMain\obj\Release\TestLoopMain.csprojResolveAssemblyReference.cache
-F:\github\ServerSuperIO\Test\TestLoopMain\obj\Release\TestLoopMain.exe
-F:\github\ServerSuperIO\Test\TestLoopMain\obj\Release\TestLoopMain.pdb
-F:\github\ServerSuperIO\bin\TestLoopMain.exe.config
-F:\github\ServerSuperIO\bin\TestLoopMain.exe
-F:\github\ServerSuperIO\bin\TestLoopMain.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestLoopMain.exe.config
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestLoopMain\obj\Release\TestLoopMain.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestLoopMain\obj\Release\TestLoopMain.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestLoopMain.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestLoopMain.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestLoopMain\obj\Release\TestLoopMain.csproj.CoreCompileInputs.cache
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestLoopMain\obj\Release\TestLoopMain.csproj.CopyComplete
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestLoopMain\obj\Release\TestLoopMain.csprojAssemblyReference.cache

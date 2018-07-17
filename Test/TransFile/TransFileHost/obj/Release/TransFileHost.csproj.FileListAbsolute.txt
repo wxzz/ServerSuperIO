@@ -18,9 +18,11 @@ F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\bin\TransFileHost.pdb
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TransFile\TransFileHost\obj\Release\TransFileHost.csprojResolveAssemblyReference.cache
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TransFile\TransFileHost\obj\Release\TransFileHost.exe
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TransFile\TransFileHost\obj\Release\TransFileHost.pdb
-F:\github\ServerSuperIO\Test\TransFile\TransFileHost\obj\Release\TransFileHost.csprojResolveAssemblyReference.cache
-F:\github\ServerSuperIO\Test\TransFile\TransFileHost\obj\Release\TransFileHost.exe
-F:\github\ServerSuperIO\Test\TransFile\TransFileHost\obj\Release\TransFileHost.pdb
-F:\github\ServerSuperIO\bin\TransFileHost.exe.config
-F:\github\ServerSuperIO\bin\TransFileHost.exe
-F:\github\ServerSuperIO\bin\TransFileHost.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TransFileHost.exe.config
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TransFileHost.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TransFileHost.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileHost\obj\Release\TransFileHost.csprojAssemblyReference.cache
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileHost\obj\Release\TransFileHost.csproj.CoreCompileInputs.cache
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileHost\obj\Release\TransFileHost.csproj.CopyComplete
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileHost\obj\Release\TransFileHost.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileHost\obj\Release\TransFileHost.pdb

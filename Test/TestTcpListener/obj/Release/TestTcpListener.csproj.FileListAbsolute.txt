@@ -12,9 +12,10 @@ F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\TestTcpListener\obj\R
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\TestTcpListener\obj\Release\TestTcpListener.pdb
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestTcpListener\obj\Release\TestTcpListener.exe
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestTcpListener\obj\Release\TestTcpListener.pdb
-F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestTcpListener\obj\Release\TestTcpListener.csprojResolveAssemblyReference.cache
-F:\github\ServerSuperIO\Test\TestTcpListener\obj\Release\TestTcpListener.exe
-F:\github\ServerSuperIO\Test\TestTcpListener\obj\Release\TestTcpListener.pdb
-F:\github\ServerSuperIO\bin\TestTcpListener.exe.config
-F:\github\ServerSuperIO\bin\TestTcpListener.exe
-F:\github\ServerSuperIO\bin\TestTcpListener.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestTcpListener.exe.config
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestTcpListener.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestTcpListener.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestTcpListener\obj\Release\TestTcpListener.csproj.CoreCompileInputs.cache
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestTcpListener\obj\Release\TestTcpListener.csproj.CopyComplete
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestTcpListener\obj\Release\TestTcpListener.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestTcpListener\obj\Release\TestTcpListener.pdb

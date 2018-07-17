@@ -31,3 +31,5 @@ F:\github\ServerSuperIO\Test\TestShowForm\obj\Debug\TestShowForm.ShowForm.resour
 F:\github\ServerSuperIO\Test\TestShowForm\obj\Debug\TestShowForm.csproj.GenerateResource.Cache
 F:\github\ServerSuperIO\Test\TestShowForm\obj\Debug\TestShowForm.dll
 F:\github\ServerSuperIO\Test\TestShowForm\obj\Debug\TestShowForm.pdb
+F:\github\ServerSuperIO\Test\TestShowForm\obj\Debug\TestShowForm.csprojAssemblyReference.cache
+F:\github\ServerSuperIO\Test\TestShowForm\obj\Debug\TestShowForm.csproj.CoreCompileInputs.cache

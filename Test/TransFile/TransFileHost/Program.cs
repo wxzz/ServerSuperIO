@@ -35,12 +35,12 @@ namespace TransFileHost
                 ControlMode = ControlMode.Self,
                 SocketMode = SocketMode.Tcp,
                 DeliveryMode = DeliveryMode.DeviceCode,
-                StartReceiveDataFliter = true,
+                ReceiveDataFliter = true,
                 ClearSocketSession = false,
             });
 
-            server.AddDeviceCompleted += server_AddDeviceCompleted;
-            server.DeleteDeviceCompleted += server_DeleteDeviceCompleted;
+            //server.AddDeviceCompleted += server_AddDeviceCompleted;
+            //server.DeleteDeviceCompleted += server_DeleteDeviceCompleted;
             server.Start();
 
             server.AddDevice(dev);

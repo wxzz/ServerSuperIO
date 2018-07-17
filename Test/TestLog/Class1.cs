@@ -15,9 +15,9 @@ namespace TestLog
 
         public string mystring { get; set; }
 
-        public override object Repair()
-        {
-            throw new NotImplementedException();
-        }
+        //public override object Repair()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

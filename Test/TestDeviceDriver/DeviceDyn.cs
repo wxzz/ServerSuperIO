@@ -5,6 +5,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using ServerSuperIO.Device;
+using ServerSuperIO.Persistence;
 
 namespace TestDeviceDriver
 {
@@ -13,19 +14,31 @@ namespace TestDeviceDriver
     {
         public DeviceDyn() : base()
         {
-            Dyn=new Dyn();
         }
 
-        public override string GetAlertState()
+        //public override string GetAlertState()
+        //{
+        //    throw new NotImplementedException("无报警信息");
+        //}
+
+
+        private float _Flow = 0.0f;
+        /// <summary>
+        /// 流量
+        /// </summary>
+        public float Flow
         {
-            throw new NotImplementedException("无报警信息");
+            get { return _Flow; }
+            set { _Flow = value; }
         }
-
-        public override object Repair()
+        private float _Signal = 0.0f;
+        /// <summary>
+        /// 信号
+        /// </summary>
+        public float Signal
         {
-            return new DeviceDyn();
+            get { return _Signal; }
+            set { _Signal = value; }
         }
-
-        public Dyn Dyn { get; set; }
     }
 }

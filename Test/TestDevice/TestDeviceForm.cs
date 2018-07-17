@@ -23,10 +23,13 @@ namespace TestDevice
 
         private TcpClient _tcpClient = null;
 
+        private Stopwatch _stopwatch;
         public TestDeviceForm()
         {
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false;
+
+            _stopwatch = new Stopwatch();
         }
 
         private byte[] GetBackData()
@@ -35,6 +38,42 @@ namespace TestDevice
             backData[0] = 0x55;
             backData[1] = 0xaa;//协议头
             backData[2] = byte.Parse(this.numericUpDown1.Value.ToString());//从机地址
+            backData[3] = 0x61;//命令
+
+            Random rand = new Random();
+            //模拟流量数据
+            byte[] flow = BitConverter.GetBytes((float)(rand.NextDouble() * 1000));
+            Array.Reverse(flow);
+
+            backData[4] = flow[0];
+            backData[5] = flow[1];
+            backData[6] = flow[2];
+            backData[7] = flow[3];
+
+            //模拟信号数据
+            byte[] signal = BitConverter.GetBytes((float)(rand.NextDouble() * 1000));
+            Array.Reverse(signal);
+
+            backData[8] = signal[0];
+            backData[9] = signal[1];
+            backData[10] = signal[2];
+            backData[11] = signal[3];
+
+            byte[] checkSum = new byte[10];
+            Buffer.BlockCopy(backData, 2, checkSum, 0, checkSum.Length);
+
+            backData[12] = (byte)checkSum.Sum(b => b);//计算校验和
+
+            backData[13] = 0x0d;
+            return backData;
+        }
+
+        private byte[] GetBackData(int code)
+        {
+            byte[] backData = new byte[14];
+            backData[0] = 0x55;
+            backData[1] = 0xaa;//协议头
+            backData[2] = (byte)code;//从机地址
             backData[3] = 0x61;//命令
 
             Random rand = new Random();
@@ -168,7 +207,7 @@ namespace TestDevice
                             && _NetBuffer[1] == 0xaa
                             && _NetBuffer[read - 1] == 0x0d)
                         {
-                            if (read == 6 && _NetBuffer[3]==0x61)
+                            if (read == 6 && _NetBuffer[3] == 0x61)
                             {
                                 byte[] backData = GetBackData();
                                 client.Client.Send(backData);
@@ -177,6 +216,23 @@ namespace TestDevice
                             else if (read == 10 && _NetBuffer[3] == 0x62)
                             {
                                 this.SendFile();
+                            }
+                            else if (_NetBuffer[3] == 0x63)
+                            {
+                                WriteLog("接收到控制命令...");
+
+                                byte[] successCmd = new byte[] { 0x55, 0xaa, _NetBuffer[2], 0x64, 0x00, 0x00, 0x00, 0x0d }; //CRC没有计算
+                                client.Client.Send(successCmd);
+                                WriteLog("返回确认命令");
+                            }
+                            else if (_NetBuffer[3] == 0x64)
+                            {
+                                if(_stopwatch.IsRunning)
+                                {
+                                    _stopwatch.Stop();
+                                }
+                                double subTime = _stopwatch.Elapsed.TotalSeconds;
+                                WriteLog("控制成功，耗时:" + subTime.ToString()+" 秒");
                             }
                         }
                         else
@@ -330,6 +386,77 @@ namespace TestDevice
         {
             byte[] backData = GetBackData();
             _tcpClient.Client.Send(backData);
+        }
+
+
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.checkBox1.Checked)
+            {
+                this.timer1.Interval = int.Parse(this.textBox1.Text);
+                this.timer1.Start();
+            }
+            else
+            {
+                this.timer1.Stop();
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            byte[] backData = GetBackData();
+            _tcpClient.Client.Send(backData);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            _stopwatch.Reset();
+            if (_stopwatch.IsRunning)
+            {
+                _stopwatch.Restart();
+            }
+            else
+            {
+                _stopwatch.Start();
+            }
+            byte[] ctrlCmd = new byte[] { 0x55, 0xaa, byte.Parse(this.numericUpDown1.Value.ToString()), 0x63, 0x00, 0x00, 0x00, 0x0d }; //CRC没有计算
+            _tcpClient.Client.Send(ctrlCmd);
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.checkBox2.Checked)
+            {
+                this.timer2.Interval = int.Parse(this.textBox2.Text);
+                this.timer2.Start();
+            }
+            else
+            {
+                this.timer2.Stop();
+            }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            int udpNum = int.Parse(this.textBox3.Text);
+            for(int i=0;i<udpNum;i++)
+            {
+                try
+                {
+                    UdpClient uc = new UdpClient();
+                    uc.Connect(this.cbbIP.Text, int.Parse(this.cbbPort.Text));
+
+                    byte[] backData = GetBackData(i);
+                    uc.Send(backData,backData.Length);
+                }
+                catch (Exception ex)
+                {
+                    WriteLog(ex.Message);
+                }
+            }
+
+            WriteLog(DateTime.Now.ToString("HH:mm:ss") + ">>UDP批次发送完成");
         }
     }
 }

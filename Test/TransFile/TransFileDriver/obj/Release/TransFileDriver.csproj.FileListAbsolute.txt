@@ -11,8 +11,10 @@ F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\TransFile\TransFileDr
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TransFile\TransFileDriver\obj\Release\TransFileDriver.csprojResolveAssemblyReference.cache
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TransFile\TransFileDriver\obj\Release\TransFileDriver.dll
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TransFile\TransFileDriver\obj\Release\TransFileDriver.pdb
-F:\github\ServerSuperIO\Test\TransFile\TransFileDriver\obj\Release\TransFileDriver.csprojResolveAssemblyReference.cache
-F:\github\ServerSuperIO\Test\TransFile\TransFileDriver\obj\Release\TransFileDriver.dll
-F:\github\ServerSuperIO\Test\TransFile\TransFileDriver\obj\Release\TransFileDriver.pdb
-F:\github\ServerSuperIO\bin\TransFileDriver.dll
-F:\github\ServerSuperIO\bin\TransFileDriver.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileDriver\obj\Release\TransFileDriver.csprojAssemblyReference.cache
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileDriver\obj\Release\TransFileDriver.csproj.CoreCompileInputs.cache
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileDriver\obj\Release\TransFileDriver.dll
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileDriver\obj\Release\TransFileDriver.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TransFileDriver.dll
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TransFileDriver.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TransFile\TransFileDriver\obj\Release\TransFileDriver.csproj.CopyComplete

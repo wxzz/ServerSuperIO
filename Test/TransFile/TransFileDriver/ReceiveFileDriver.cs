@@ -26,17 +26,17 @@ namespace TransFileDriver
         }
 
 
-        public override void Initialize(string devid)
+        public override void Initialize(object devid)
         {
             this.Protocol.InitDriver(this.GetType(), new FixedHeadAndEndReceiveFliter(TransFileDriver.Protocol.Head, TransFileDriver.Protocol.End));
         }
 
-        public override byte[] GetConstantCommand()
+        public override IList<IRequestInfo> GetConstantCommand()
         {
             return null;
         }
 
-        public override void Communicate(IRequestInfo info)
+        public override void Communicate(IResponseInfo info)
         {
             object obj = this.Protocol.DriverAnalysis<String,String>("writefile", info.Data, null,null);
             if (obj.ToString() == "0")
@@ -49,12 +49,12 @@ namespace TransFileDriver
             }
         }
 
-        public override void CommunicateInterrupt(IRequestInfo info)
+        public override void CommunicateInterrupt(IResponseInfo info)
         {
             OnDeviceRuningLog("通讯中断");
         }
 
-        public override void CommunicateError(IRequestInfo info)
+        public override void CommunicateError(IResponseInfo info)
         {
             OnDeviceRuningLog("通讯干扰");
         }
@@ -64,20 +64,6 @@ namespace TransFileDriver
             //throw new NotImplementedException();
         }
 
-        public override void Alert()
-        {
-            //throw new NotImplementedException();
-        }
-
-        public override void Save()
-        {
-            //throw new NotImplementedException();
-        }
-
-        public override void Show()
-        {
-            //throw new NotImplementedException();
-        }
 
         public override void UnknownIO()
         {
@@ -109,11 +95,6 @@ namespace TransFileDriver
             throw new NotImplementedException();
         }
 
-        public override string GetAlertState()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void ShowContextMenu()
         {
             //throw new NotImplementedException();
@@ -135,7 +116,9 @@ namespace TransFileDriver
         public override string ModelNumber {
             get { return "TransFile"; }
         }
-        public override object RunDeviceConnector(IFromDevice fromDevice, IDeviceToDevice toDevice)
+
+        public override IDeviceConnectorCallbackResult RunDeviceConnector(IFromDevice fromDevice, IDeviceToDevice toDevice,
+            AsyncDeviceConnectorCallback asyncCallback)
         {
             throw new NotImplementedException();
         }
@@ -150,7 +133,8 @@ namespace TransFileDriver
             throw new NotImplementedException();
         }
 
-        public override object RunServiceConnector(IFromService fromService, IServiceToDevice toDevice)
+        public override IServiceConnectorCallbackResult RunServiceConnector(IFromService fromService, IServiceToDevice toDevice,
+            AsyncServiceConnectorCallback asyncService)
         {
             throw new NotImplementedException();
         }
