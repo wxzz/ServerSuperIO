@@ -9,29 +9,31 @@ using ServerSuperIO.Common;
 using ServerSuperIO.Communicate;
 using ServerSuperIO.Device;
 using ServerSuperIO.Device.Connector;
+using ServerSuperIO.Persistence;
 using ServerSuperIO.Protocol;
 using ServerSuperIO.Protocol.Filter;
 using ServerSuperIO.Service.Connector;
+using ServerSuperIO.Data;
 
 namespace TestDeviceDriver
 {
     public class DeviceDriver : RunDevice
     {
-        private DeviceDyn _deviceDyn;
-        private DevicePara _devicePara;
         private DeviceProtocol _protocol;
         private ContextMenuComponent _contextMenuComponent;
+        private string _channelKey;
+
         public DeviceDriver() : base()
         {
-            _devicePara = new DevicePara();
-            _deviceDyn = new DeviceDyn();
             _protocol = new DeviceProtocol();
             _contextMenuComponent=new ContextMenuComponent();
         }
 
-        public override void Initialize(string devid)
+        public override void Initialize(object obj)
         {
-            this.Protocol.InitDriver(this.GetType(), new FixedHeadAndEndReceiveFliter(new byte[] { 0x55, 0xaa }, new byte[] { 0x0d }));
+            base.Initialize(obj);
+            
+            //this.Protocol.InitDriver(this.GetType(), new FixedHeadAndEndReceiveFliter(new byte[] { 0x55, 0xaa }, new byte[] { 0x0d }));
 
             //this.Protocol.InitDriver(this, new FixedLengthReceiveFliter(2));
 
@@ -46,45 +48,31 @@ namespace TestDeviceDriver
 
             //初始化设备参数信息
 
-            _devicePara.DeviceID = devid;//设备的ID必须先赋值，因为要查找对应的参数文件。
-            if (System.IO.File.Exists(_devicePara.SavePath))
-            {
-                //如果参数文件存在，则获得参数实例
-                _devicePara = _devicePara.Load<DevicePara>();
-            }
-            else
-            {
-                //如果参数文件不存在，则序列化一个文件
-                _devicePara.Save<DevicePara>(_devicePara);
-            }
+            //_devicePara.DeviceID = devid;//设备的ID必须先赋值，因为要查找对应的参数文件。
+            //_devicePara.Load();
 
-            //初始化设备实时数据信息
-            _deviceDyn.DeviceID = devid;//设备的ID必须先赋值，因为要查找对应的实时数据文件。
-            if (System.IO.File.Exists(_deviceDyn.SavePath))
-            {
-                //如果参数文件存在，则获得参数实例
-                _deviceDyn = _deviceDyn.Load<DeviceDyn>();
-            }
-            else
-            {
-                //如果参数文件不存在，则序列化一个文件
-                _deviceDyn.Save<DeviceDyn>(_deviceDyn);
-            }
+            ////初始化设备实时数据信息
+            //_deviceDyn.DeviceID = devid;//设备的ID必须先赋值，因为要查找对应的实时数据文件。
+            //_deviceDyn.Load();
 
             this.DeviceDynamic.ChannelState = ChannelState.Close;
             this.DeviceDynamic.CommunicateState = CommunicateState.Interrupt;
         }
 
-        public override byte[] GetConstantCommand()
+        public override IList<IRequestInfo> GetConstantCommand()
         {
             byte[] data = this.Protocol.DriverPackage<String>(this.DeviceParameter.DeviceCode, CommandArray.RealTimeData.ToString(), null);
             string hexs = BinaryUtil.ByteToHex(data);
             OnDeviceRuningLog("发送>>" + hexs);
-            return data;
+
+            IList<IRequestInfo> cmdList = new List<IRequestInfo>();
+            cmdList.Add(new RequestInfo(data,null));
+            return cmdList;
         }
 
-        public override void Communicate(ServerSuperIO.Communicate.IRequestInfo info)
+        public override void Communicate(ServerSuperIO.Communicate.IResponseInfo info)
         {
+
             string hexs = BinaryUtil.ByteToHex(info.Data);
             OnDeviceRuningLog("接收>>" + hexs);
 
@@ -96,30 +84,35 @@ namespace TestDeviceDriver
             {
                 if (cr == CommandArray.RealTimeData)
                 {
-                    _deviceDyn.Dyn = (Dyn)obj;
-                    OnDeviceRuningLog("通讯正常");
-                    if (this.DeviceParameter.DeviceCode != "1")
-                    {
-                        Console.WriteLine(">>>>模拟控制命令开始");
-                        this.OnDeviceConnector(
-                            new FromDevice(this.DeviceParameter.DeviceID, this.DeviceParameter.DeviceCode,
-                                this.DeviceParameter.DeviceAddr, this.DeviceParameter.DeviceName),
-                            new DeviceToDevice("1", this.DeviceParameter.DeviceName + "问：大哥，朴大妈为什么还不下课？", null, null));
-                    }
+                    Dyn dyn = (Dyn)obj;
+
+                    this.DeviceDynamic.DynamicData.Write("flow",dyn.Flow);
+                    this.DeviceDynamic.DynamicData.Write("signal",dyn.Signal);
+
+                    CrossServerPublisher();
+
+                    OnDeviceRuningLog("通讯正常，流量："+ dyn.Flow+",信号："+dyn.Signal);
                 }
                 else if (cr == CommandArray.FileData)
                 {
                     OnDeviceRuningLog("文件存储路径：" + obj.ToString());
                 }
+                //else if (cr == CommandArray.BackControlCommand)
+                //{
+                //    if (_serviceCallback != null)
+                //    {
+                //        _serviceCallback.BeginInvoke(new string[] { this.DeviceParameter.DeviceCode, _channelKey }, null, null);
+                //    }
+                //}
             }
         }
 
-        public override void CommunicateInterrupt(ServerSuperIO.Communicate.IRequestInfo info)
+        public override void CommunicateInterrupt(ServerSuperIO.Communicate.IResponseInfo info)
         {
             OnDeviceRuningLog("通讯中断");
         }
 
-        public override void CommunicateError(ServerSuperIO.Communicate.IRequestInfo info)
+        public override void CommunicateError(ServerSuperIO.Communicate.IResponseInfo info)
         {
             //UDP
             //info.Channel.Write(System.Text.Encoding.ASCII.GetBytes("aaa"));
@@ -131,32 +124,16 @@ namespace TestDeviceDriver
             OnDeviceRuningLog("通讯未知");
         }
 
-        public override void Alert()
+        public void CrossServerPublisher()
         {
-            return;
-        }
+            object value1 = DeviceDynamic.DynamicData.Read("flow");
+            object value2 = DeviceDynamic.DynamicData.Read("signal");
 
-        public override void Save()
-        {
-            try
-            {
-                _deviceDyn.Save<DeviceDyn>(_deviceDyn);
-            }
-            catch (Exception ex)
-            {
-                OnDeviceRuningLog(ex.Message);
-            }
-        }
+            List<ITag> tags = new List<ITag>();
+            tags.Add(new Tag() { Timestamp=DateTime.Now,TagName="flow",TagValue=Convert.ToDouble(value1) });
+            tags.Add(new Tag() { Timestamp = DateTime.Now, TagName = "signal", TagValue = Convert.ToDouble(value2) });
 
-        public override void Show()
-        {
-            OnUpdateContainer(null);
-            List<string> list = new List<string>();
-            list.Add(_devicePara.DeviceCode);
-            list.Add(_devicePara.DeviceName);
-            list.Add(_deviceDyn.Dyn.Flow.ToString());
-            list.Add(_deviceDyn.Dyn.Signal.ToString());
-            OnDeviceObjectChanged(list.ToArray());
+            this.DeviceDynamic.Save();
         }
 
         public override void UnknownIO()
@@ -190,24 +167,9 @@ namespace TestDeviceDriver
             throw new NotImplementedException();
         }
 
-        public override string GetAlertState()
-        {
-            return "";
-        }
-
         public override void ShowContextMenu()
         {
             this._contextMenuComponent.ContextMenuStrip.Show(Cursor.Position);
-        }
-
-        public override IDeviceDynamic DeviceDynamic
-        {
-            get { return _deviceDyn; }
-        }
-
-        public override IDeviceParameter DeviceParameter
-        {
-            get { return _devicePara; }
         }
 
         public override IProtocolDriver Protocol
@@ -227,30 +189,24 @@ namespace TestDeviceDriver
         {
             get { return "serversuperio"; }
         }
-
-
-        public override object RunDeviceConnector(IFromDevice fromDevice, IDeviceToDevice toDevice)
+        public override IDeviceConnectorCallbackResult RunDeviceConnector(IFromDevice fromDevice, IDeviceToDevice toDevice, AsyncDeviceConnectorCallback callback)
         {
-            Console.WriteLine(toDevice.Text);//输出其他设备传来的数据。
-            return this.DeviceParameter.DeviceName + "答：你不觉得这才是真正的韩剧吗？傻小子";
+            throw new NotImplementedException();
         }
 
         public override void DeviceConnectorCallback(object obj)
         {
-            Console.WriteLine(obj.ToString());//输出返回结果
-            Console.WriteLine(this.DeviceParameter.DeviceName+ "说：奥黑也真够坑爹的！");
-            Console.WriteLine(">>>>模拟控制命令结束");
+            throw new NotImplementedException();
         }
 
         public override void DeviceConnectorCallbackError(Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            throw new NotImplementedException();
         }
-
-        public override object RunServiceConnector(IFromService fromService, IServiceToDevice toDevice)
+       
+        public override IServiceConnectorCallbackResult RunServiceConnector(IFromService fromService, IServiceToDevice toDevice,AsyncServiceConnectorCallback callback)
         {
-            Console.WriteLine(this.DeviceParameter.DeviceName+",接收到云端指令:"+toDevice.Text);
-            return this.DeviceParameter.DeviceName+",执行完成";
+            throw new NotImplementedException();
         }
     }
 }

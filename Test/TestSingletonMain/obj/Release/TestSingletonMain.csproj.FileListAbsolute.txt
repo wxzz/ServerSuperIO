@@ -13,9 +13,11 @@ F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\bin\TestSingletonMain
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestSingletonMain\obj\Release\TestSingletonMain.exe
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestSingletonMain\obj\Release\TestSingletonMain.pdb
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestSingletonMain\obj\Release\TestSingletonMain.csprojResolveAssemblyReference.cache
-F:\github\ServerSuperIO\Test\TestSingletonMain\obj\Release\TestSingletonMain.csprojResolveAssemblyReference.cache
-F:\github\ServerSuperIO\Test\TestSingletonMain\obj\Release\TestSingletonMain.exe
-F:\github\ServerSuperIO\Test\TestSingletonMain\obj\Release\TestSingletonMain.pdb
-F:\github\ServerSuperIO\bin\TestSingletonMain.exe.config
-F:\github\ServerSuperIO\bin\TestSingletonMain.exe
-F:\github\ServerSuperIO\bin\TestSingletonMain.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestSingletonMain.exe.config
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestSingletonMain.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestSingletonMain.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestSingletonMain\obj\Release\TestSingletonMain.csprojAssemblyReference.cache
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestSingletonMain\obj\Release\TestSingletonMain.csproj.CoreCompileInputs.cache
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestSingletonMain\obj\Release\TestSingletonMain.csproj.CopyComplete
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestSingletonMain\obj\Release\TestSingletonMain.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestSingletonMain\obj\Release\TestSingletonMain.pdb

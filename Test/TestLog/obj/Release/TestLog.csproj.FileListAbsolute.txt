@@ -14,8 +14,10 @@ F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\TestLog\obj\Release\T
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestLog\obj\Release\TestLog.exe
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestLog\obj\Release\TestLog.pdb
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestLog\obj\Release\TestLog.csprojResolveAssemblyReference.cache
-F:\github\ServerSuperIO\Test\TestLog\obj\Release\TestLog.exe
-F:\github\ServerSuperIO\Test\TestLog\obj\Release\TestLog.pdb
-F:\github\ServerSuperIO\bin\TestLog.exe.config
-F:\github\ServerSuperIO\bin\TestLog.exe
-F:\github\ServerSuperIO\bin\TestLog.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestLog.exe.config
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestLog.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestLog.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestLog\obj\Release\TestLog.csproj.CoreCompileInputs.cache
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestLog\obj\Release\TestLog.csproj.CopyComplete
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestLog\obj\Release\TestLog.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestLog\obj\Release\TestLog.pdb

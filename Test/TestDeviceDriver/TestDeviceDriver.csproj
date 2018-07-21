@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\</OutputPath>
+    <OutputPath>..\..\bin\ServerSuperIO\Drivers\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>1</WarningLevel>
@@ -27,7 +27,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\</OutputPath>
+    <OutputPath>..\..\bin\ServerSuperIO\Drivers\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,9 +35,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ServerSuperIO, Version=3.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ServerSuperIO\ServerSuperIO\obj\Debug\ServerSuperIO.dll</HintPath>
+    <Reference Include="ServerSuperIO">
+      <HintPath>..\..\bin\ServerSuperIO.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Command\CommandArray.cs" />
     <Compile Include="Command\DeviceFileCommand.cs" />
+    <Compile Include="Command\BackControlCommand.cs" />
     <Compile Include="Command\DeviceRTCommand.cs" />
     <Compile Include="ContextMenuComponent.cs">
       <SubType>Component</SubType>

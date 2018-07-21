@@ -21,12 +21,12 @@ namespace TestTcpListener
             _server=new ServerManager().CreateServer(new ServerConfig()
             {
                 ServerName = "myserver",
-                SocketMode = SocketMode.Udp,
+                SocketMode = SocketMode.Tcp,
                 ControlMode=ControlMode.Parallel,
                 CheckSameSocketSession = false,
             });
             _server.SocketConnected += server_SocketConnected;
-            _server.SocketClosed+=server_SocketClosed;
+            _server.SocketClosed += server_SocketClosed;
             _server.Start();
 
             while (true)
@@ -43,7 +43,7 @@ namespace TestTcpListener
             Console.Read();
         }
 
-        private static void server_SocketClosed(string ip, int port)
+        private static void server_SocketClosed(string serverName,string ip, int port)
         {
             lock (_server)
             {
@@ -52,7 +52,7 @@ namespace TestTcpListener
             }
         }
 
-        private static void server_SocketConnected(string ip, int port)
+        private static void server_SocketConnected(string serverName, string ip, int port)
         {
             lock (_server)
             {

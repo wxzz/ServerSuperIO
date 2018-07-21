@@ -10,6 +10,10 @@ namespace TestDeviceDriver
     {
        RealTimeData = 0x61,
 
-       FileData = 0x62
+       FileData = 0x62,
+
+       ControlCommand=0x63, //控制命令
+
+       BackControlCommand=0x64
     }
 }

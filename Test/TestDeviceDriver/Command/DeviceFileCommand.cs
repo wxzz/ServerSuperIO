@@ -47,7 +47,7 @@ namespace TestDeviceDriver
         {
             if (t != null)
             {
-                string path = AppDomain.CurrentDomain.BaseDirectory + DateTime.Now.ToString("yyyyMMddHHmmss") + ".txt";
+                string path = AppDomain.CurrentDomain.BaseDirectory + DateTime.Now.ToString("yyyyMMddHHmmss") + ".db";
                 File.WriteAllBytes(path, t as byte[]);
                 return path;
             }

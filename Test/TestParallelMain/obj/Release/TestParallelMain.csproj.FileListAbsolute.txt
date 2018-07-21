@@ -19,9 +19,11 @@ F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\bin\TestParallelMain.
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestParallelMain\obj\Release\TestParallelMain.exe
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestParallelMain\obj\Release\TestParallelMain.pdb
 F:\工作目录\工作区\平台软件\ServerSuperIO\trunk\Test\TestParallelMain\obj\Release\TestParallelMain.csprojResolveAssemblyReference.cache
-F:\github\ServerSuperIO\Test\TestParallelMain\obj\Release\TestParallelMain.csprojResolveAssemblyReference.cache
-F:\github\ServerSuperIO\Test\TestParallelMain\obj\Release\TestParallelMain.exe
-F:\github\ServerSuperIO\Test\TestParallelMain\obj\Release\TestParallelMain.pdb
-F:\github\ServerSuperIO\bin\TestParallelMain.exe.config
-F:\github\ServerSuperIO\bin\TestParallelMain.exe
-F:\github\ServerSuperIO\bin\TestParallelMain.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestParallelMain.exe.config
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestParallelMain.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\bin\TestParallelMain.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestParallelMain\obj\Release\TestParallelMain.csproj.CoreCompileInputs.cache
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestParallelMain\obj\Release\TestParallelMain.csproj.CopyComplete
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestParallelMain\obj\Release\TestParallelMain.exe
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestParallelMain\obj\Release\TestParallelMain.pdb
+F:\工作目录\工作区\平台软件\ServerSuperIO-v4\trunk\Test\TestParallelMain\obj\Release\TestParallelMain.csprojAssemblyReference.cache

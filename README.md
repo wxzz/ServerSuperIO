@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+### 注：二次开发套件、SuperIO、ServerSuperIO.WinIot(windows10 iot版本)不在开源之列。<br>
+=======
 # 注：二次开发套件、SuperIO、ServerSuperIO.WinIot(windows10 iot版本)不在开源之列。<br>
+>>>>>>> master
 
 #ServerSuperIO的特点
 1.轻型高性能通信框架，适用于多种应用场，轮询模式、自控模式、并发模式和单例模式。<br>
